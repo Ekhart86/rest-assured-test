@@ -1,4 +1,4 @@
-package registration;
+package api;
 
 import endpoints.EndPoints;
 import io.restassured.RestAssured;
@@ -12,6 +12,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import static io.restassured.RestAssured.baseURI;
 import static io.restassured.RestAssured.given;
 
 
@@ -21,7 +22,7 @@ public class AuthorizationTest {
     public void autorizationTestPost(String email, String password, Boolean result, int statusCode, Response response, String expectedMessage) {
 
         RestAssured.baseURI = "https://iqoption.com";
-        response = given().log().all().urlEncodingEnabled(true)
+        response = given().baseUri(baseURI).log().all().urlEncodingEnabled(true)
                 .param("email", email)
                 .param("password", password)
                 .header("Accept", ContentType.JSON.getAcceptHeader())

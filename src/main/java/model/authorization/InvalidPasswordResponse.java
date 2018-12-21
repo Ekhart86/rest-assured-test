@@ -2,9 +2,9 @@ package model.authorization;
 
 import java.util.ArrayList;
 
-public class InvalidPasswordResponse extends Response{
+public class InvalidPasswordResponse extends Response {
 
-   ArrayList<String> message = new ArrayList<String>();
+    ArrayList<String> message = new ArrayList<String>();
     ArrayList<String> result = new ArrayList<String>();
 
 

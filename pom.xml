@@ -8,6 +8,14 @@
     <artifactId>test-iqoption</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <properties>
+        <aspectj.version>1.8.10</aspectj.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.version>1.8</java.version>
+        <aspectj.version>1.8.10</aspectj.version>
+    </properties>
+
+
     <dependencies>
         <dependency>
             <groupId>io.rest-assured</groupId>
@@ -24,7 +32,6 @@
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>6.14.3</version>
-            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugins</groupId>
@@ -32,10 +39,19 @@
             <version>3.8.0</version>
             <type>maven-plugin</type>
         </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.5.0</version>
+        </dependency>
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>3.2.0</version>
+            <scope>compile</scope>
+        </dependency>
+
     </dependencies>
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    </properties>
     <build>
         <pluginManagement>
             <plugins>
@@ -56,4 +72,5 @@
             </plugins>
         </pluginManagement>
     </build>
+
 </project>
