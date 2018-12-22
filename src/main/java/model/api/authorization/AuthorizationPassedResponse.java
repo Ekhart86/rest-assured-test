@@ -1,8 +1,7 @@
-package model.authorization;
+package model.api.authorization;
 
 
-public class AuthorizationPassedResponse extends Response{
-
+public class AuthorizationPassedResponse extends Response {
 
 
     @Override

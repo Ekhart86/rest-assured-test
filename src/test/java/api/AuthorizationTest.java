@@ -3,16 +3,16 @@ package api;
 import endpoints.EndPoints;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import model.authorization.AuthorizationPassedResponse;
+import model.api.authorization.AuthorizationPassedResponse;
 
-import model.authorization.InvalidEmailResponse;
-import model.authorization.InvalidPasswordResponse;
-import model.authorization.Response;
+import model.api.authorization.InvalidEmailResponse;
+import model.api.authorization.InvalidPasswordResponse;
+import model.api.authorization.Response;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-import static io.restassured.RestAssured.baseURI;
+
 import static io.restassured.RestAssured.given;
 
 
@@ -21,19 +21,18 @@ public class AuthorizationTest {
     @Test(dataProvider = "authorizationDataFields")
     public void autorizationTestPost(String email, String password, Boolean result, int statusCode, Response response, String expectedMessage) {
 
-        RestAssured.baseURI = "https://iqoption.com";
-        response = given().baseUri(baseURI).log().all().urlEncodingEnabled(true)
+        response = given().baseUri(EndPoints.baseURL).log().all().urlEncodingEnabled(true)
                 .param("email", email)
                 .param("password", password)
                 .header("Accept", ContentType.JSON.getAcceptHeader())
                 .post(EndPoints.authorization)
-                .then().log().body()
+                .then().log().all()
                 .statusCode(statusCode)
                 .extract()
                 .body()
                 .as(response.getClass());
         Assert.assertEquals(response.showMessage(), expectedMessage);
-        Assert.assertEquals((Object)response.isSuccessful(),result);
+        Assert.assertEquals((Object) response.isSuccessful(), result);
     }
 
     @DataProvider

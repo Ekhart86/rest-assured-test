@@ -4,7 +4,7 @@ package api;
 import endpoints.EndPoints;
 import io.restassured.RestAssured;
 import io.restassured.http.ContentType;
-import model.registration.RegistrationResponse;
+import model.api.registration.RegistrationResponse;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -18,8 +18,7 @@ public class RegistrationTest {
     @Test(dataProvider = "registrationDataFields")
     public void registrationTestPost(String email, String password, String first_name, String last_name, String tz, int expectedResultCode) {
 
-        RestAssured.baseURI = "https://iqoption.com";
-        RegistrationResponse response = given().log().all().urlEncodingEnabled(true)
+        RegistrationResponse response = given().baseUri(EndPoints.baseURL).log().all().urlEncodingEnabled(true)
                 .param("email", email)
                 .param("password", password)
                 .param("first_name", first_name)

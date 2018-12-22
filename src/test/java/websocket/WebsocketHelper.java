@@ -1,19 +1,18 @@
 package websocket;
+
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import okhttp3.Response;
 import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import okio.ByteString;
 
-import java.io.BufferedReader;
-
-import java.io.InputStreamReader;
-
 
 public class WebsocketHelper extends WebSocketListener {
 
-
+    static String jsonResponse;
+    Gson gson = new Gson();
     private static final int NORMAL_CLOSURE_STATUS = 1000;
-    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
 
     @Override
@@ -25,14 +24,18 @@ public class WebsocketHelper extends WebSocketListener {
 
     @Override
     public void onMessage(WebSocket webSocket, String text) {
-        System.out.println("Receiving: " + text);
-        webSocket.send("response-" + text);
+
+        JsonObject temp = gson.fromJson(text, JsonObject.class);
+        if (temp != null && temp.get("name").getAsString().equals("profile")) {
+            jsonResponse = text;
+        }
+        webSocket.close(NORMAL_CLOSURE_STATUS, "Данные получены");
 
     }
 
     @Override
     public void onMessage(WebSocket webSocket, ByteString bytes) {
-        System.out.println("Receiving: " + bytes.hex());
+        System.out.println("Receiving byteString: " + bytes.hex());
     }
 
     @Override
@@ -45,5 +48,8 @@ public class WebsocketHelper extends WebSocketListener {
     public void onFailure(WebSocket webSocket, Throwable t, Response response) {
         t.printStackTrace();
     }
+
+
+
 
 }

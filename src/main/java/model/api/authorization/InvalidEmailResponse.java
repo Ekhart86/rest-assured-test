@@ -1,11 +1,11 @@
-package model.authorization;
+package model.api.authorization;
 
 import java.util.ArrayList;
 
-public class InvalidEmailResponse extends Response{
+public class InvalidEmailResponse extends Response {
 
     Message message;
-    ArrayList < Object > result = new ArrayList < Object > ();
+    ArrayList<Object> result = new ArrayList<Object>();
 
     public Message getMessage() {
         return message;

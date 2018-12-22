@@ -1,7 +1,7 @@
-package model.registration;
+package model.api.registration;
 
 
-public  class RegistrationResponse {
+public class RegistrationResponse {
 
     private boolean isSuccessful;
     private String result = null;

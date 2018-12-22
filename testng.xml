@@ -1,14 +1,2 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite">
-    <test verbose="2" preserve-order="true" name="/home/roman/IdeaProjects/testiqoption/src/test/java">
-        <classes><class name="api.AuthorizationTest"><methods>
-            <include name="autorizationTestPost"/></methods>
-        </class><class name="api.RegistrationTest"><methods>
-            <include name="registrationTestPost"/></methods>
-        </class><class name="websocket.WebsocketTest"><methods>
-            <include name="websocketTest"/></methods>
-        </class>
-        </classes>
-    </test>
-</suite>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd"><suite name="All Test Suite"><test verbose="2" preserve-order="true" name="/home/roman/IdeaProjects/testiqoption/src/test/java"><classes><class name="api.AuthorizationTest"><methods><include name="autorizationTestPost"/></methods></class><class name="api.RegistrationTest"><methods><include name="registrationTestPost"/></methods></class><class name="websocket.WebsocketTest"><methods><include name="websockedLoginPassedTest"/></methods></class></classes></test></suite>

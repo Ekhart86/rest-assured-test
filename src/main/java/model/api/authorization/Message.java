@@ -1,4 +1,4 @@
-package model.authorization;
+package model.api.authorization;
 
 import java.util.ArrayList;
 

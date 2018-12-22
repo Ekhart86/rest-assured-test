@@ -1,4 +1,4 @@
-package model.authorization;
+package model.api.authorization;
 
 public abstract class Response {
     private boolean isSuccessful;
@@ -11,6 +11,7 @@ public abstract class Response {
     public void setSuccessful(boolean successful) {
         isSuccessful = successful;
     }
-    public abstract String showMessage() ;
+
+    public abstract String showMessage();
 
 }
