@@ -3,7 +3,10 @@ package api;
 
 import endpoints.EndPoints;
 import io.restassured.RestAssured;
+import io.restassured.builder.RequestSpecBuilder;
+import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
+import io.restassured.specification.RequestSpecification;
 import model.api.registration.RegistrationResponse;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -15,10 +18,16 @@ import static org.testng.Assert.assertFalse;
 
 public class RegistrationTest {
 
-    @Test(dataProvider = "registrationDataFields")
-    public void registrationTestPost(String email, String password, String first_name, String last_name, String tz, int expectedResultCode) {
+    private RequestSpecification requestSpec = new RequestSpecBuilder()
+            .setBaseUri(EndPoints.baseURL)
+            .log(LogDetail.ALL)
+            .build();
 
-        RegistrationResponse response = given().baseUri(EndPoints.baseURL).log().all().urlEncodingEnabled(true)
+
+    @Test(dataProvider = "registrationDataFields",description = "Регистрация пользователя с некорректными данными")
+    public void registrationTestFailed(String email, String password, String first_name, String last_name, String tz, int expectedResultCode) {
+
+        RegistrationResponse response = given().spec(requestSpec).urlEncodingEnabled(true)
                 .param("email", email)
                 .param("password", password)
                 .param("first_name", first_name)

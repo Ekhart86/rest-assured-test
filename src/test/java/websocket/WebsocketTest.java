@@ -21,7 +21,7 @@ public class WebsocketTest {
 
     private Gson gson = new Gson();
 
-    @Test
+    @Test(description = "Успешная авторизация в Websocket")
     public void websockedLoginPassedTest() {
 
         //Авторизация
@@ -64,14 +64,14 @@ public class WebsocketTest {
     }
 
 
-    @Test
+    @Test(description = "Не успешная авторизация в Websocket")
     public void websockedLoginFailedTest() {
+
         String jsonWithIncorrectSsid = gson.toJson(new WebsocketMessage("ssid", "11111111111111111111111111111111"));
         System.out.println(jsonWithIncorrectSsid);
         WebsocketHelper.sendMessage(jsonWithIncorrectSsid);
         JsonObject jsonWebsocketProfile = gson.fromJson(WebsocketHelper.jsonResponse, JsonObject.class);
         System.out.println("Профиль полученный через вебсокет " + jsonWebsocketProfile);
-
         Assert.assertEquals(jsonWebsocketProfile.get("msg").getAsString(), "false", "Статус профиля неверный");
         System.out.println("Тест пройден. При отправке неверного ssid в ответ получаем профиль в статусе false");
     }
