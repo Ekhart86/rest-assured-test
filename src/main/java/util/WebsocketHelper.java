@@ -30,7 +30,6 @@ public class WebsocketHelper extends WebSocketListener {
         if (temp != null && temp.get("name").getAsString().equals("profile")) {
             jsonResponse = text;
         }
-        webSocket.close(NORMAL_CLOSURE_STATUS, "Данные получены");
 
     }
 
@@ -65,6 +64,7 @@ public class WebsocketHelper extends WebSocketListener {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
+        webSocket.close(NORMAL_CLOSURE_STATUS, "Закрытие вебсокета");
         client.dispatcher().executorService().shutdown();
     }
 
