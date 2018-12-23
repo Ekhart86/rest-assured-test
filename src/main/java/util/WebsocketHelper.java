@@ -1,17 +1,18 @@
-package websocket;
+package util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import okhttp3.Response;
-import okhttp3.WebSocket;
-import okhttp3.WebSocketListener;
+import endpoints.EndPoints;
+import okhttp3.*;
 import okio.ByteString;
+
+import static java.lang.Thread.sleep;
 
 
 public class WebsocketHelper extends WebSocketListener {
 
-    static String jsonResponse;
-    Gson gson = new Gson();
+    public static String jsonResponse;
+    private Gson gson = new Gson();
     private static final int NORMAL_CLOSURE_STATUS = 1000;
 
 
@@ -50,6 +51,21 @@ public class WebsocketHelper extends WebSocketListener {
     }
 
 
+    public static void sendMessage(String message) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(EndPoints.websocketURL)
+                .build();
 
+        WebsocketHelper listener = new WebsocketHelper();
+        WebSocket webSocket = client.newWebSocket(request, listener);
+        webSocket.send(message);
+        try {
+            sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        client.dispatcher().executorService().shutdown();
+    }
 
 }
