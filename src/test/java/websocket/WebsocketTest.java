@@ -9,14 +9,16 @@ import io.restassured.response.Response;
 import model.api.profile.ApiProfile;
 import model.websocket.WebsocketMessage;
 import org.testng.Assert;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import util.LogListener;
 import util.WebsocketHelper;
 
 import java.util.Map;
 
 import static io.restassured.RestAssured.given;
 
-
+@Listeners(LogListener.class)
 public class WebsocketTest {
 
     private Gson gson = new Gson();

@@ -7,14 +7,16 @@ import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import util.LogListener;
 
 
 import static endpoints.EndPoints.*;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.*;
 
-
+@Listeners(LogListener.class)
 public class AuthorizationTest {
 
     private RequestSpecification requestSpec = new RequestSpecBuilder()

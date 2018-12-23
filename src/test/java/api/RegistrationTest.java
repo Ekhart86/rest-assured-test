@@ -9,13 +9,15 @@ import io.restassured.http.ContentType;
 import io.restassured.specification.RequestSpecification;
 import model.api.registration.RegistrationResponse;
 import org.testng.annotations.DataProvider;
+import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
+import util.LogListener;
 
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
-
+@Listeners(LogListener.class)
 public class RegistrationTest {
 
     private RequestSpecification requestSpec = new RequestSpecBuilder()
