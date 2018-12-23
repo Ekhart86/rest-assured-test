@@ -1,5 +1,9 @@
 package model.api.authorization;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public abstract class Response {
     private boolean isSuccessful;
 

@@ -1,5 +1,9 @@
 package model.api.profile;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
+
 public class ApiProfile {
     private boolean isSuccessful;
     private String message;

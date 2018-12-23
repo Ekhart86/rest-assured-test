@@ -1,10 +1,11 @@
 package model.websocket;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 
-
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class WebsocketMessage {
 
     private String name;

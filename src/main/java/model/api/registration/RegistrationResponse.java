@@ -1,5 +1,8 @@
 package model.api.registration;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+@JsonIgnoreProperties(ignoreUnknown = true)
 
 public class RegistrationResponse {
 

@@ -66,7 +66,6 @@ public class WebsocketTest {
 
     @Test
     public void websockedLoginFailedTest() {
-        Gson gson = new Gson();
         String jsonWithIncorrectSsid = gson.toJson(new WebsocketMessage("ssid", "11111111111111111111111111111111"));
         System.out.println(jsonWithIncorrectSsid);
         WebsocketHelper.sendMessage(jsonWithIncorrectSsid);
