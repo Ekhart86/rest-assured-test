@@ -4,6 +4,7 @@ package websocket;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import endpoints.EndPoints;
+import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import model.api.profile.ApiProfile;
@@ -19,6 +20,7 @@ import java.util.Map;
 import static io.restassured.RestAssured.given;
 
 @Listeners(LogListener.class)
+@Feature("Тестирование вебсокета")
 public class WebsocketTest {
 
     private Gson gson = new Gson();

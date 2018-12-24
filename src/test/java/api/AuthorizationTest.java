@@ -2,6 +2,7 @@ package api;
 
 
 import endpoints.EndPoints;
+import io.qameta.allure.Feature;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
@@ -17,6 +18,7 @@ import static io.restassured.RestAssured.given;
 import static org.testng.Assert.*;
 
 @Listeners(LogListener.class)
+@Feature("Тестирование авторизации")
 public class AuthorizationTest {
 
     private RequestSpecification requestSpec = new RequestSpecBuilder()

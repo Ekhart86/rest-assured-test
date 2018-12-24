@@ -2,6 +2,7 @@ package api;
 
 
 import endpoints.EndPoints;
+import io.qameta.allure.Feature;
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -18,6 +19,7 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
 @Listeners(LogListener.class)
+@Feature("Тестирование регистрации")
 public class RegistrationTest {
 
     private RequestSpecification requestSpec = new RequestSpecBuilder()
