@@ -17,6 +17,8 @@ import util.WebsocketHelper;
 
 import java.util.Map;
 
+import static endpoints.EndPoints.validLogin;
+import static endpoints.EndPoints.validPassword;
 import static io.restassured.RestAssured.given;
 
 @Listeners(LogListener.class)
@@ -30,8 +32,8 @@ public class WebsocketTest {
 
         //Авторизация
         Response responseAuthorization = given().baseUri(EndPoints.baseURL).urlEncodingEnabled(true)
-                .param("email", "valderama1@yandex.ru")
-                .param("password", "iqoption86")
+                .param("email", validLogin)
+                .param("password", validPassword)
                 .header("Accept", ContentType.JSON.getAcceptHeader())
                 .post(EndPoints.authorization);
         Map<String, String> cookies = responseAuthorization.cookies();
