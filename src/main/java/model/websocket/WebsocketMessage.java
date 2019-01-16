@@ -4,8 +4,10 @@ package model.websocket;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
+import lombok.Data;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Data
 public class WebsocketMessage {
 
     private String name;
@@ -16,19 +18,4 @@ public class WebsocketMessage {
         this.msg = new JsonPrimitive(message);
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public JsonElement getMessage() {
-        return msg;
-    }
-
-    public void setMessage(JsonElement message) {
-        this.msg = message;
-    }
 }
