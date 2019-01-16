@@ -1,5 +1,6 @@
 package executers;
 
+import beans.Beans;
 import constants.EndPoints;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -11,8 +12,10 @@ import model.api.registration.RegistrationResponse;
 
 import static constants.RequestData.*;
 import static io.restassured.RestAssured.given;
+import org.springframework.stereotype.Service;
 
-public class BaseExecutor {
+@Service
+public class BaseExecutor  {
 
 
     private RequestSpecification requestSpec = new RequestSpecBuilder()

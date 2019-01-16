@@ -1,10 +1,11 @@
 package testsuite.api;
 
 
-import executers.BaseExecutor;
+import beans.Beans;
 import io.qameta.allure.Feature;
 
 import io.restassured.response.Response;
+import org.springframework.context.annotation.ComponentScan;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import util.LogListener;
@@ -12,10 +13,11 @@ import util.LogListener;
 
 import static org.testng.Assert.*;
 
+@ComponentScan(basePackages = {"beans"}, basePackageClasses = Beans.class)
+
 @Listeners(LogListener.class)
 @Feature("Тестирование авторизации")
-public class AuthorizationTest {
-   private  BaseExecutor baseExecutor = new BaseExecutor();
+public class AuthorizationTest extends Beans {
 
     @Test(description = "Успешная авторизация с верным логином и паролем")
     public void autorizationPassedTest() {

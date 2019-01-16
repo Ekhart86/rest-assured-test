@@ -1,6 +1,7 @@
 package testsuite.api;
 
 
+import beans.Beans;
 import executers.BaseExecutor;
 import io.qameta.allure.Feature;
 import model.api.registration.RegistrationResponse;
@@ -15,9 +16,9 @@ import static org.testng.Assert.assertFalse;
 
 @Listeners(LogListener.class)
 @Feature("Тестирование регистрации")
-public class RegistrationTest {
+public class RegistrationTest extends Beans {
 
-    private BaseExecutor baseExecutor = new BaseExecutor();
+
 
 
     @Test(dataProvider = "registrationDataFields", description = "Регистрация пользователя с некорректными данными")

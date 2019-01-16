@@ -1,6 +1,7 @@
 package testsuite.websocket;
 
 
+import beans.Beans;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import executers.BaseExecutor;
@@ -19,10 +20,9 @@ import java.util.Map;
 
 @Listeners(LogListener.class)
 @Feature("Тестирование вебсокета")
-public class WebsocketTest {
+public class WebsocketTest extends Beans {
 
     private Gson gson = new Gson();
-    private BaseExecutor baseExecutor = new BaseExecutor();
 
     @Test(description = "Успешная авторизация в Websocket")
     public void websockedLoginPassedTest() {
@@ -32,11 +32,11 @@ public class WebsocketTest {
         Map<String, String> cookies = responseAuthorization.cookies();
         String ssid = cookies.get("ssid");
 
-        /** Получение профиля через rest testsuite.api **/
+        /** Получение профиля через rest api **/
 
         ApiProfile apiProfile = baseExecutor.apiProfileGet(ssid);
 
-        /** Отправка ssid в testsuite.websocket **/
+        /** Отправка ssid в websocket **/
 
         String jsonWithSsid = gson.toJson(new WebsocketMessage("ssid", cookies.get("ssid")));
         WebsocketHelper.sendMessage(jsonWithSsid);
