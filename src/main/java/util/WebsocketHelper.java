@@ -2,7 +2,7 @@ package util;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import endpoints.EndPoints;
+import constants.EndPoints;
 import okhttp3.*;
 import okio.ByteString;
 
@@ -53,7 +53,7 @@ public class WebsocketHelper extends WebSocketListener {
     public static void sendMessage(String message) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url(EndPoints.websocketURL)
+                .url(EndPoints.WEBSOCKET_URL)
                 .build();
 
         WebsocketHelper listener = new WebsocketHelper();

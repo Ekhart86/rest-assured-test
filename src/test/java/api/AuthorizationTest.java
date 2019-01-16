@@ -1,7 +1,7 @@
 package api;
 
 
-import endpoints.EndPoints;
+import constants.EndPoints;
 import io.qameta.allure.Feature;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 import util.LogListener;
 
 
-import static endpoints.EndPoints.*;
+import static constants.RequestData.*;
 import static io.restassured.RestAssured.given;
 import static org.testng.Assert.*;
 
@@ -22,7 +22,7 @@ import static org.testng.Assert.*;
 public class AuthorizationTest {
 
     private RequestSpecification requestSpec = new RequestSpecBuilder()
-            .setBaseUri(EndPoints.baseURL)
+            .setBaseUri(EndPoints.BASE_URL)
             .log(LogDetail.ALL)
             .build();
 
@@ -31,10 +31,10 @@ public class AuthorizationTest {
 
         Response response = given()
                 .spec(requestSpec).urlEncodingEnabled(true)
-                .param("email", validLogin)
-                .param("password", validPassword)
+                .param("email", VALID_LOGIN)
+                .param("password", VALID_PASSWORD)
                 .header("Accept", ContentType.JSON.getAcceptHeader())
-                .post(EndPoints.authorization);
+                .post(EndPoints.AUTHORIZATION);
         System.out.println(response.prettyPrint());
         assertEquals(200, response.getStatusCode());
         assertTrue(response.jsonPath().get("isSuccessful"), "Не верный статус поля isSuccessful");
@@ -47,10 +47,10 @@ public class AuthorizationTest {
 
         Response response = given()
                 .spec(requestSpec).urlEncodingEnabled(true)
-                .param("email", validLogin)
-                .param("password", invalidPassword)
+                .param("email", VALID_LOGIN)
+                .param("password", INVALID_PASSWORD)
                 .header("Accept", ContentType.JSON.getAcceptHeader())
-                .post(EndPoints.authorization);
+                .post(EndPoints.AUTHORIZATION);
         System.out.println(response.prettyPrint());
         assertEquals(208, response.getStatusCode());
         assertFalse(response.jsonPath().get("isSuccessful"), "Не верный статус поля isSuccessful");
@@ -64,10 +64,10 @@ public class AuthorizationTest {
 
         Response response = given()
                 .spec(requestSpec).urlEncodingEnabled(true)
-                .param("email", invalidLogin)
-                .param("password", validPassword)
+                .param("email", INVALID_LOGIN)
+                .param("password", VALID_PASSWORD)
                 .header("Accept", ContentType.JSON.getAcceptHeader())
-                .post(EndPoints.authorization);
+                .post(EndPoints.AUTHORIZATION);
         System.out.println(response.prettyPrint());
         assertEquals(208, response.getStatusCode());
         assertFalse(response.jsonPath().get("isSuccessful"), "Не верный статус поля isSuccessful");

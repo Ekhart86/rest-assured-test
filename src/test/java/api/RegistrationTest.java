@@ -1,9 +1,8 @@
 package api;
 
 
-import endpoints.EndPoints;
+import constants.EndPoints;
 import io.qameta.allure.Feature;
-import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.filter.log.LogDetail;
 import io.restassured.http.ContentType;
@@ -15,6 +14,7 @@ import org.testng.annotations.Test;
 import util.LogListener;
 
 import static io.restassured.RestAssured.given;
+
 import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertFalse;
 
@@ -23,12 +23,12 @@ import static org.testng.Assert.assertFalse;
 public class RegistrationTest {
 
     private RequestSpecification requestSpec = new RequestSpecBuilder()
-            .setBaseUri(EndPoints.baseURL)
+            .setBaseUri(EndPoints.BASE_URL)
             .log(LogDetail.ALL)
             .build();
 
 
-    @Test(dataProvider = "registrationDataFields",description = "Регистрация пользователя с некорректными данными")
+    @Test(dataProvider = "registrationDataFields", description = "Регистрация пользователя с некорректными данными")
     public void registrationTestFailed(String email, String password, String first_name, String last_name, String tz, int expectedResultCode) {
 
         RegistrationResponse response = given().spec(requestSpec).urlEncodingEnabled(true)
@@ -38,14 +38,14 @@ public class RegistrationTest {
                 .param("last_name", last_name)
                 .param("tz", tz)
                 .header("Accept", ContentType.JSON.getAcceptHeader())
-                .post(EndPoints.registration)
+                .post(EndPoints.REGISTRATION)
                 .then().log().body()
                 .statusCode(200)
                 .extract()
                 .body()
                 .as(RegistrationResponse.class);
         assertEquals(response.getCode(), expectedResultCode, "Код ответа не совпадает с ожидаемым");
-        assertFalse(response.getIsSuccessful(), "Неверное значение поля result");
+        assertFalse(response.isSuccessful(), "Неверное значение поля result");
 
     }
 

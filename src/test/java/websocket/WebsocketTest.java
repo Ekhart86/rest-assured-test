@@ -3,7 +3,7 @@ package websocket;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import endpoints.EndPoints;
+import constants.EndPoints;
 import io.qameta.allure.Feature;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -17,8 +17,8 @@ import util.WebsocketHelper;
 
 import java.util.Map;
 
-import static endpoints.EndPoints.validLogin;
-import static endpoints.EndPoints.validPassword;
+import static constants.RequestData.VALID_LOGIN;
+import static constants.RequestData.VALID_PASSWORD;
 import static io.restassured.RestAssured.given;
 
 @Listeners(LogListener.class)
@@ -31,20 +31,20 @@ public class WebsocketTest {
     public void websockedLoginPassedTest() {
 
         //Авторизация
-        Response responseAuthorization = given().baseUri(EndPoints.baseURL).urlEncodingEnabled(true)
-                .param("email", validLogin)
-                .param("password", validPassword)
+        Response responseAuthorization = given().baseUri(EndPoints.BASE_URL).urlEncodingEnabled(true)
+                .param("email", VALID_LOGIN)
+                .param("password", VALID_PASSWORD)
                 .header("Accept", ContentType.JSON.getAcceptHeader())
-                .post(EndPoints.authorization);
+                .post(EndPoints.AUTHORIZATION);
         Map<String, String> cookies = responseAuthorization.cookies();
 
         //Получение профиля через rest api
 
-        ApiProfile apiProfile = given().baseUri(EndPoints.baseURL).urlEncodingEnabled(true)
+        ApiProfile apiProfile = given().baseUri(EndPoints.BASE_URL).urlEncodingEnabled(true)
                 .header("Accept", ContentType.JSON.getAcceptHeader())
                 .header("Cookie", "ssid=" + cookies.get("ssid"))
                 .header("Cookie", "lang=ru_RU")
-                .get(EndPoints.usersProfile).then().log().all().extract()
+                .get(EndPoints.USERS_PROFILE).then().log().all().extract()
                 .body()
                 .as(ApiProfile.class);
 
