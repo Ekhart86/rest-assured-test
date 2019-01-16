@@ -10,6 +10,6 @@ public class EndPoints {
 
     public static final String BASE_URL = "https://iqoption.com";
 
-    public static final String WEBSOCKET_URL = "wss://iqoption.com/echo/websocket";
+    public static final String WEBSOCKET_URL = "wss://iqoption.com/echo/testsuite.websocket";
 
 }

@@ -1,11 +1,10 @@
-package websocket;
+package testsuite.websocket;
 
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import constants.EndPoints;
+import executers.BaseExecutor;
 import io.qameta.allure.Feature;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import model.api.profile.ApiProfile;
 import model.websocket.WebsocketMessage;
@@ -17,38 +16,27 @@ import util.WebsocketHelper;
 
 import java.util.Map;
 
-import static constants.RequestData.VALID_LOGIN;
-import static constants.RequestData.VALID_PASSWORD;
-import static io.restassured.RestAssured.given;
 
 @Listeners(LogListener.class)
 @Feature("Тестирование вебсокета")
 public class WebsocketTest {
 
     private Gson gson = new Gson();
+    private BaseExecutor baseExecutor = new BaseExecutor();
 
     @Test(description = "Успешная авторизация в Websocket")
     public void websockedLoginPassedTest() {
 
-        //Авторизация
-        Response responseAuthorization = given().baseUri(EndPoints.BASE_URL).urlEncodingEnabled(true)
-                .param("email", VALID_LOGIN)
-                .param("password", VALID_PASSWORD)
-                .header("Accept", ContentType.JSON.getAcceptHeader())
-                .post(EndPoints.AUTHORIZATION);
+        /** Авторизация **/
+        Response responseAuthorization = baseExecutor.authPassedPost();
         Map<String, String> cookies = responseAuthorization.cookies();
+        String ssid = cookies.get("ssid");
 
-        //Получение профиля через rest api
+        /** Получение профиля через rest testsuite.api **/
 
-        ApiProfile apiProfile = given().baseUri(EndPoints.BASE_URL).urlEncodingEnabled(true)
-                .header("Accept", ContentType.JSON.getAcceptHeader())
-                .header("Cookie", "ssid=" + cookies.get("ssid"))
-                .header("Cookie", "lang=ru_RU")
-                .get(EndPoints.USERS_PROFILE).then().log().all().extract()
-                .body()
-                .as(ApiProfile.class);
+        ApiProfile apiProfile = baseExecutor.apiProfileGet(ssid);
 
-        //Отправка ssid в websocket
+        /** Отправка ssid в testsuite.websocket **/
 
         String jsonWithSsid = gson.toJson(new WebsocketMessage("ssid", cookies.get("ssid")));
         WebsocketHelper.sendMessage(jsonWithSsid);

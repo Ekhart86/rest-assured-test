@@ -1,56 +1,34 @@
-package api;
+package testsuite.api;
 
 
-import constants.EndPoints;
+import executers.BaseExecutor;
 import io.qameta.allure.Feature;
-import io.restassured.builder.RequestSpecBuilder;
-import io.restassured.filter.log.LogDetail;
-import io.restassured.http.ContentType;
+
 import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
 import org.testng.annotations.Listeners;
 import org.testng.annotations.Test;
 import util.LogListener;
 
 
-import static constants.RequestData.*;
-import static io.restassured.RestAssured.given;
 import static org.testng.Assert.*;
 
 @Listeners(LogListener.class)
 @Feature("Тестирование авторизации")
 public class AuthorizationTest {
-
-    private RequestSpecification requestSpec = new RequestSpecBuilder()
-            .setBaseUri(EndPoints.BASE_URL)
-            .log(LogDetail.ALL)
-            .build();
+   private  BaseExecutor baseExecutor = new BaseExecutor();
 
     @Test(description = "Успешная авторизация с верным логином и паролем")
     public void autorizationPassedTest() {
-
-        Response response = given()
-                .spec(requestSpec).urlEncodingEnabled(true)
-                .param("email", VALID_LOGIN)
-                .param("password", VALID_PASSWORD)
-                .header("Accept", ContentType.JSON.getAcceptHeader())
-                .post(EndPoints.AUTHORIZATION);
+        Response response = baseExecutor.authPassedPost();
         System.out.println(response.prettyPrint());
         assertEquals(200, response.getStatusCode());
         assertTrue(response.jsonPath().get("isSuccessful"), "Не верный статус поля isSuccessful");
 
     }
 
-
     @Test(description = "Авторизация пользователя с некорректным паролем")
     public void autorizationFailedTestInvalidPassword() {
-
-        Response response = given()
-                .spec(requestSpec).urlEncodingEnabled(true)
-                .param("email", VALID_LOGIN)
-                .param("password", INVALID_PASSWORD)
-                .header("Accept", ContentType.JSON.getAcceptHeader())
-                .post(EndPoints.AUTHORIZATION);
+        Response response = baseExecutor.authInvalidPasswordPost();
         System.out.println(response.prettyPrint());
         assertEquals(208, response.getStatusCode());
         assertFalse(response.jsonPath().get("isSuccessful"), "Не верный статус поля isSuccessful");
@@ -58,16 +36,9 @@ public class AuthorizationTest {
 
     }
 
-
     @Test(description = "Авторизация пользователя с некорректным E-mail")
     public void autorizationFailedTestInvalidEmail() {
-
-        Response response = given()
-                .spec(requestSpec).urlEncodingEnabled(true)
-                .param("email", INVALID_LOGIN)
-                .param("password", VALID_PASSWORD)
-                .header("Accept", ContentType.JSON.getAcceptHeader())
-                .post(EndPoints.AUTHORIZATION);
+        Response response = baseExecutor.authInvalidEmailPost();
         System.out.println(response.prettyPrint());
         assertEquals(208, response.getStatusCode());
         assertFalse(response.jsonPath().get("isSuccessful"), "Не верный статус поля isSuccessful");
