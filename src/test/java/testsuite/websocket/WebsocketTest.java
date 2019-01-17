@@ -27,16 +27,16 @@ public class WebsocketTest extends Beans {
     @Test(description = "Успешная авторизация в Websocket")
     public void websockedLoginPassedTest() {
 
-        /** Авторизация **/
+        // Авторизация
         Response responseAuthorization = baseExecutor.authPassedPost();
         Map<String, String> cookies = responseAuthorization.cookies();
         String ssid = cookies.get("ssid");
 
-        /** Получение профиля через rest api **/
+        // Получение профиля через rest api
 
         ApiProfile apiProfile = baseExecutor.apiProfileGet(ssid);
 
-        /** Отправка ssid в websocket **/
+        // Отправка ssid в websocket
 
         String jsonWithSsid = gson.toJson(new WebsocketMessage("ssid", cookies.get("ssid")));
         WebsocketHelper.sendMessage(jsonWithSsid);
